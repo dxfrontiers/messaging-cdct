@@ -1,13 +1,10 @@
-server:
-  port: 8081
-
 spring:
   cloud:
     function:
-      definition: order
+      definition: customer
     stream:
       bindings:
-        order-in-0:
+        order-out-0:
           destination: "order"
       kafka:
         binder:

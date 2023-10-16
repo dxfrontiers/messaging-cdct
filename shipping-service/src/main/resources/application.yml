@@ -4,11 +4,11 @@ server:
 spring:
   cloud:
     function:
-      definition: customer
+      definition: order
     stream:
       bindings:
-        customer-in-0:
-          destination: "customer"
+        order-in-0:
+          destination: "order"
       kafka:
         binder:
           brokers: localhost:29092
