@@ -17,14 +17,14 @@ public class OrderOutboundMessaging {
         this.streamBridge = streamBridge;
     }
 
-    public void publishOrderPlacedEvent(Order updatedCustomer) {
+    public void publishOrderPlacedEvent(Order placedOrder) {
         streamBridge.send(
                 "order",
                 MessageBuilder
                         .withPayload(
                                 OrderPlacedEvent.builder()
                                         .publishedAt(Instant.now())
-                                        .order(updatedCustomer)
+                                        .order(placedOrder)
                                         .build()
                         )
                         .setHeader("messageType", "ORDER_PLACED")
@@ -34,7 +34,7 @@ public class OrderOutboundMessaging {
 
     @Value
     @Builder
-    private static class OrderPlacedEvent {
+    public static class OrderPlacedEvent {
         private final Instant publishedAt;
         private final Order order;
     }

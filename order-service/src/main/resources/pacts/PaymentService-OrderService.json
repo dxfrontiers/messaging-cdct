@@ -1,0 +1,81 @@
+{
+  "consumer": {
+    "name": "PaymentService"
+  },
+  "interactions": [
+    {
+      "comments": {
+        "testname": "de.dxfrontiers.sample.cdctmessaging.paymentservice.PaymentServiceConsumerPactTest.processOrderUpdatedEvent(AsynchronousMessage)"
+      },
+      "contents": {
+        "content": {
+          "order": {
+            "customer": "Digital Frontiers",
+            "id": "e2490de5-5bd3-43d5-b7c4-526e33f71304",
+            "items": [
+              "Laptop",
+              "Bildschirm"
+            ],
+            "price": 2000
+          }
+        },
+        "contentType": "application/json",
+        "encoded": false
+      },
+      "description": "a newly placed order",
+      "generators": {
+        "body": {
+          "$.order.id": {
+            "type": "Uuid"
+          }
+        }
+      },
+      "key": "101746c4",
+      "matchingRules": {
+        "body": {
+          "$.order.customer": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "type"
+              }
+            ]
+          },
+          "$.order.id": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "regex",
+                "regex": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+              }
+            ]
+          },
+          "$.order.price": {
+            "combine": "AND",
+            "matchers": [
+              {
+                "match": "integer"
+              }
+            ]
+          }
+        }
+      },
+      "metadata": {
+        "contentType": "application/json"
+      },
+      "pending": false,
+      "type": "Asynchronous/Messages"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.6.3"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "OrderService"
+  }
+}
